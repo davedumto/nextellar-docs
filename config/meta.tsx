@@ -1,50 +1,51 @@
 export const meta = {
-  metadataBase: new URL('https://pinexio.vercel.app'),
-  title: 'Pinexio - Documentation template',
+  metadataBase: new URL('https://nextellar.org'),
+  title: 'Nextellar — Build Stellar dApps Faster',
   description:
-    'A customizable Open Source documentation template built with Next.js',
-  authors: [{ name: 'Sanjay Rajeev' }],
+    'Nextellar is an open-source, TypeScript-first CLI toolkit for bootstrapping production-ready Next.js + Stellar dApps with wallets, payments, and plugin support.',
+  authors: [{ name: 'Nextellar Team' }],
   keywords: [
-    'Pinexio',
-    'documentation template',
-    'template',
+    'Nextellar',
     'Next.js',
-    'React',
-    'JavaScript',
+    'Stellar',
+    'TypeScript',
+    'CLI',
+    'dApp',
+    'Web3',
+    'Open Source',
+    'Blockchain',
+    'Documentation',
   ],
-  publisher: 'Sanjay Rajeev',
-  creator: 'Sanjay Rajeev',
+  publisher: 'Nextellar',
+  creator: 'Nextellar Team',
   openGraph: {
     type: 'website',
-    title: 'Pinexio - Documentation Template',
+    url: 'https://nextellar.org',
+    title: 'Nextellar — Build Stellar dApps Faster',
     description:
-      'A customizable open-source documentation template built with Next.js.',
+      'Open-source toolkit for building full-stack dApps with Next.js and Stellar — one-step scaffolding, wallets, payments, and smart-contract utilities.',
     images: [
       {
-        url: '/og_image.png',
+        url: '/og_nextellar.png',
         width: 1200,
         height: 630,
-        alt: 'Pinexio Documentation Template',
+        alt: 'Nextellar Documentation and CLI Toolkit',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image', // Type of Twitter card
-    title: 'Pinexio - Documentation Template', // Twitter card title
+    card: 'summary_large_image',
+    title: 'Nextellar — Build Stellar dApps Faster',
     description:
-      'A customizable open-source documentation template built with Next.js.', // Twitter card description
-    images: ['/og_image.png'], // Image used in the Twitter card
-    creator: '@sanjayrajeev', // Twitter handle of the content creator (optional)
+      'TypeScript-first CLI toolkit for bootstrapping production-ready Next.js + Stellar dApps. Open-source, fast, and modular.',
+    images: ['/og_nextellar.png'],
+    creator: '@nextellar', // replace with official handle when available
   },
-  // SEO Enhancements
   alternates: {
-    canonical: 'https://pinexio.vercel.app', // Set the canonical URL
+    canonical: 'https://nextellar.org',
   },
-  robots: 'index, follow', // Allows search engines to index and follow links
-  // Optional: Hreflang for multilingual content (if applicable)
+  robots: 'index, follow',
   hreflang: {
-    en: 'https://pinexio.vercel.app', // English version URL
-    // Add more hreflang if you have other languages (example: Spanish)
-    // "es": "https://pinexio.vercel.app/es",
+    en: 'https://nextellar.org',
   },
 };

@@ -1,11 +1,21 @@
 {
-  "name": "documentation-template-nextjs",
+  "name": "nextellar-docs",
   "version": "0.1.0",
   "private": true,
-  "author": "Sanjay Rajeev",
+  "type": "module",
+  "description": "Documentation site for Nextellar — a TypeScript-first, modular CLI for bootstrapping Next.js + Stellar dApps (scaffolding, plugins, wallets, payments).",
+  "author": "Nextellar Team <team@nextellar.example>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/nextellar-docs.git"
+  },
+  "homepage": "https://docs.nextellar.org",
   "bugs": {
-    "url": "https://github.com/sanjayc208/pinexio/issues"
+    "url": "https://github.com/your-org/nextellar-docs/issues"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "scripts": {
     "dev": "next dev",
@@ -14,25 +24,27 @@
     "lint": "next lint",
     "build:content": "contentlayer2 build",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "format:check": "prettier --check .",
+    "prepare": "husky",
+    "test": "echo \"No tests configured\" && exit 0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,md, mdx}": [
+    "*.{js,jsx,ts,tsx,json,css,md,mdx}": [
       "prettier --write",
       "eslint --fix"
     ]
   },
   "keywords": [
+    "nextellar",
     "nextjs",
     "documentation",
-    "template",
     "docs",
-    "nextjs-template",
-    "static-site",
-    "mdx",
-    "documentation-template",
-    "nextjs-docs",
-    "nextjs-starter"
+    "cli",
+    "stellar",
+    "typescript",
+    "scaffolding",
+    "plugin-system",
+    "nextjs-docs"
   ],
   "dependencies": {
     "@emotion/is-prop-valid": "^1.3.1",

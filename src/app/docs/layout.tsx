@@ -48,22 +48,23 @@ export default function DocsLayout({
         showIconsOnCollapse={true}
       >
         <Sidebar>
-          <SidebarHeader>
+          <SidebarHeader  >
             <SidebarHeaderLogo
+            className='w-auto h-auto'
               logo={
                 <Image
                   alt="logo"
-                  className={'h-auto w-aut dark:invert'}
+                  className={' w-[200px] object-cover dark:invert'}
                   width={100}
                   height={100}
-                  src={`/logos/pinedocs.png`}
+                  src={`/logos/logo.png`}
                 />
               }
             />
 
-            <Link href={'/'} className="flex flex-1 gap-3">
-              <SidebarHeaderTitle>
-                PINE<span className="text-4xl">X</span>IO
+            <Link href={'/'} className="flex flex-1 gap-1">
+              <SidebarHeaderTitle className='capitalize text-2xl' >
+                Next<span className='text-3xl' >e</span>llar
               </SidebarHeaderTitle>
             </Link>
           </SidebarHeader>
@@ -86,7 +87,7 @@ export default function DocsLayout({
             ))}
           </SidebarContent>
 
-          <SidebarFooter>
+          {/* <SidebarFooter>
             <UserAvatar>
               {
                 <Image
@@ -105,7 +106,7 @@ export default function DocsLayout({
                 sanjayc208@gmail.com
               </span>
             </div>
-          </SidebarFooter>
+          </SidebarFooter> */}
         </Sidebar>
 
         {/* Main Content */}
