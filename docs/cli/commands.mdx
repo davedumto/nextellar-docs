@@ -1,0 +1,68 @@
+---
+
+title: CLI Commands
+description: Reference guide for all Nextellar CLI commands using a structured table format.
+date: 2025-03-12
+---
+
+# Nextellar CLI — Commands Reference
+
+This page provides a clean, table-based reference for every available Nextellar CLI command. For flags and advanced configuration, see the **Flags & Options** page.
+
+---
+
+## 1. Core Commands
+
+| Command                             | Description                                                 | Example                     |
+| ----------------------------------- | ----------------------------------------------------------- | --------------------------- |
+| `nextellar <project-name>`          | Creates a new Nextellar project using the default scaffold. | `nextellar my-app`          |
+| `npx nextellar <project-name>`      | Runs the CLI without a global install (recommended).        | `npx nextellar my-app`      |
+| `pnpm dlx nextellar <project-name>` | pnpm on-demand execution.                                   | `pnpm dlx nextellar my-app` |
+| `bunx nextellar <project-name>`     | bun on-demand execution.                                    | `bunx nextellar my-app`     |
+
+---
+
+## 2. Informational Commands
+
+| Command               | Description                                 | Example               |
+| --------------------- | ------------------------------------------- | --------------------- |
+| `nextellar --help`    | Shows help text for all commands and flags. | `nextellar --help`    |
+| `nextellar --version` | Prints the installed version of the CLI.    | `nextellar --version` |
+
+---
+
+## 3. Upcoming Commands (Planned)
+
+These commands are referenced in the roadmap and will be added to Nextellar in future releases.
+
+| Command                            | Status      | Description                                                                 |
+| ---------------------------------- | ----------- | --------------------------------------------------------------------------- |
+| `nextellar generate <type> <name>` | Coming Soon | Will generate components, hooks, utilities, or Stellar-specific modules.    |
+| `nextellar doctor`                 | Coming Soon | Diagnose system environment, Node version, and Stellar connectivity issues. |
+| `nextellar upgrade`                | Coming Soon | Automatically update scaffold dependencies and recommended configs.         |
+
+---
+
+## 4. Usage Examples
+
+### Create a new project
+
+```bash
+npx nextellar my-app
+```
+
+### Create a JavaScript project (with flag)
+
+```bash
+npx nextellar my-app --javascript
+```
+
+### Use a template (with flag)
+
+```bash
+npx nextellar my-app --example payments-demo
+```
+
+---
+
+This page lists the full set of available commands. For configuration and customization, continue to the **Flags & Options** and **Scaffolding Templates** pages.
