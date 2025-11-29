@@ -54,19 +54,31 @@ export default function DocsLayout({
               logo={
                 <Image
                   alt="logo"
-                  className={' w-[200px] object-cover dark:invert'}
-                  width={100}
+                  className={' w-44  object-contain dark:hidden'}
+                  width={188}
                   height={100}
-                  src={`/logos/logo.png`}
+                  src={`/logos/logo-with-text-light.png`}
+                />
+              }
+            />
+            <SidebarHeaderLogo
+            className='w-auto h-auto'
+              logo={
+                <Image
+                  alt="logo"
+                  className={' w-44  hidden object-contain dark:block'}
+                  width={188}
+                  height={100}
+                  src={`/logos/logo-with-text-dark.png`}
                 />
               }
             />
 
-            <Link href={'/'} className="flex flex-1 gap-1">
+            {/* <Link href={'/'} className="flex flex-1 gap-1">
               <SidebarHeaderTitle className='capitalize text-2xl' >
                 Next<span className='text-3xl' >e</span>llar
               </SidebarHeaderTitle>
-            </Link>
+            </Link> */}
           </SidebarHeader>
           <SidebarContent>
             {sidebarNav.map((section) => (
