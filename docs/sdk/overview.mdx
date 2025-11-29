@@ -1,0 +1,85 @@
+---
+
+title: SDK Overview
+description: High-level overview of the Nextellar SDK, goals, architecture, and where to find hooks and API references.
+date: 2025-03-12
+---
+
+# Nextellar SDK — Overview
+
+The **Nextellar SDK** is a set of client-side utilities, React hooks, and typed APIs that make interacting with the Stellar network (Horizon + Soroban) simple, reliable, and composable within Next.js applications. The SDK focuses on ergonomics, strong typing, and production-readiness so teams can build wallet-connected experiences and contract-driven features quickly.
+
+---
+
+## Goals
+
+* **Developer ergonomics** — Provide small, composable hooks and helpers that do one thing well.
+* **Type safety** — Ship TypeScript-first APIs with accurate typings and JSDoc for IDE autocompletion.
+* **Stellar-first primitives** — Encapsulate Horizon / Soroban interactions behind intuitive abstractions such as `useStellarAccount`, `useStellarPayment`, and `useSorobanContract`.
+* **Testability** — Support network mocking (MSW) and deterministic behavior for unit/integration testing.
+* **Extensibility** — Keep the SDK modular so teams can replace or extend adapters (custom wallets, RPC endpoints) without forked codebases.
+
+---
+
+## What’s included
+
+* **React hooks** for common flow (accounts, balances, trustlines, payments, transaction history).
+* **Soroban helpers** for contract calls, fee estimation, and event subscriptions.
+* **Typed clients** that wrap Horizon and Soroban RPC interactions.
+* **UI primitives** (lightweight helpers) that pair well with the shadcn/ui component set in the scaffold.
+* **Testing utilities** to stub Horizon/Soroban responses using MSW and helper matchers for Jest.
+
+---
+
+## Architecture & Patterns
+
+1. **Client layer (`lib/stellar`)** — Creates configured instances for Horizon and Soroban RPC clients. This layer is side-effect free and test-friendly.
+
+2. **Adapter layer** — Wallet adapters (Freighter, XBull, Ledger) expose a common shape so hooks can remain wallet-agnostic. Adapters are responsible for connection, signing operations, and public key management.
+
+3. **Hook layer (`hooks/*`)** — Lightweight, composable React hooks built on top of the client and adapter layers. Hooks handle orchestration (caching, polling, subscriptions) and expose minimal imperative APIs where necessary (e.g., `sendPayment()`).
+
+4. **UI helpers** — Non-visual helpers for formatting balances, parsing operations, and deriving transaction statuses.
+
+5. **Testing utilities** — Utilities and MSW handlers that mirror real Horizon and Soroban responses for offline testing.
+
+---
+
+## Stability & Versioning
+
+The SDK follows semantic versioning. Breaking changes will be communicated in release notes and migration guides. Public APIs in the `hooks/` and `lib/stellar/` folders are considered the stable surface; internal utilities may change more frequently.
+
+---
+
+## Security Considerations
+
+* **Never expose private keys** client-side. Wallet adapters must handle signing operations securely.
+* **Validate contract inputs** before constructing transactions to avoid injection or malformed transactions.
+* **Rate-limit horizon requests** and handle transient errors (retry/backoff) gracefully.
+
+---
+
+## Getting started (links)
+
+* SDK hooks reference → **[Hooks](/docs/sdk/hooks)**
+* Full API reference → **[API Reference](/docs/sdk/api-reference)**
+
+For a quick, practical start, jump to the **Hooks** page which contains runnable examples and usage patterns.
+
+---
+
+## Contributing & Roadmap
+
+Contributions to SDK APIs, adapters, and tests are welcome. When proposing a change:
+
+1. Open an issue describing the motivation and intended API.
+2. Submit a small, focused PR with tests and typings updated.
+3. Add migration notes for breaking changes.
+
+Planned items for the SDK roadmap:
+
+* Expanded Soroban contract examples and event helpers.
+* Official MSW fixtures for Horizon & Soroban.
+* A small CLI utility to generate hook and component skeletons (`nextellar generate`).
+
+---

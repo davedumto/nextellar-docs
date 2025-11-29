@@ -1,0 +1,123 @@
+---
+title: 'Hooks'
+description: 'Explore all React hooks available in the Nextellar SDK with clear summaries and usage guidance.'
+date: 2025-03-12
+---
+
+# Hooks Overview
+
+Nextellar provides a set of powerful, typed React hooks that simplify working with Stellar accounts, balances, payments, smart contracts, wallets, and network status.  
+These hooks are lightweight, composable, and designed to fit naturally into modern Next.js applications.
+
+---
+
+## Why Hooks in Nextellar?
+
+Using hooks in Nextellar gives you:
+
+### ✅ Reactive Stellar data
+
+Live updates for accounts, balances, transactions, and contract values.
+
+### ✅ Cleaner UI components
+
+Hooks keep UI components free from networking and blockchain logic.
+
+### ✅ Built-in loading & error states
+
+Every hook exposes a consistent, predictable return shape.
+
+### ✅ Full TypeScript support
+
+Strong types for Stellar responses ensure correctness and better DX.
+
+### ✅ Wallet-aware functionality
+
+Hooks automatically detect and respond to wallet connection state.
+
+---
+
+## Hook Categories
+
+Below is the complete list of hooks available in Nextellar, grouped by purpose.  
+Each hook has its own dedicated page with full examples and API details.
+
+---
+
+## **Account Hooks**
+
+### **useStellarAccount**
+
+Retrieve account state including sequence number, thresholds, and signers.
+
+### **useStellarBalances**
+
+Fetch and track asset balances with automatic updates.
+
+### **useTransactionHistory**
+
+Load and paginate a user’s transaction history from Horizon.
+
+### **useTrustlines**
+
+Fetch trustlines and monitor changes such as added or removed assets.
+
+---
+
+## **Transaction Hooks**
+
+### **useStellarPayment**
+
+Build and submit Stellar payment transactions with wallet signing.
+
+### **useOfferBook**
+
+Fetch orderbook data for asset pairs (bids/asks) and subscribe to updates.
+
+---
+
+## **Wallet Hooks**
+
+### **useWallet**
+
+Provides active wallet details, public key, and connection status.
+
+### **useConnectWallet**
+
+Trigger UI-safe wallet connection flows (Freighter, Albedo, etc.).
+
+### **useDisconnectWallet**
+
+Disconnect the active wallet and reset session state.
+
+---
+
+## **Soroban (Smart Contract) Hooks**
+
+### **useSorobanContract**
+
+Read and write Soroban contract methods using the RPC client.
+
+### **useSorobanEvents**
+
+Subscribe to Soroban contract events and stream updates in real time.
+
+---
+
+## **Network Hooks**
+
+### **useNetwork**
+
+Access your app’s active Stellar network configuration (testnet, futurenet, etc.).
+
+---
+
+## How Nextellar Hooks Work
+
+Nextellar’s hooks are designed to stay out of your way and let you build fast. Each hook sits on top of lightweight Stellar utilities and wallet adapters, turning complex blockchain logic into simple, predictable React APIs. Instead of managing network calls, parsing responses, or handling edge cases, you work with clean, focused hooks that compose naturally — so you can spend more time building features and less time wiring things together.
+
+## Quick Links
+
+- **CLI Commands** → [View Docs](/docs/cli/commands)
+- **SDK Overview** → [View Docs](/docs/sdk/overview)
+- **API Reference** → [View Docs](/docs/sdk/api-reference)

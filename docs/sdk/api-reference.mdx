@@ -1,0 +1,236 @@
+---
+
+title: "API Reference"
+description: "Complete reference for the core API surface of the Nextellar SDK, including utilities, clients, configuration, and core functions."
+date: 2025-03-12
+---
+
+# API Reference
+
+The Nextellar SDK exposes a clean, typed API designed to simplify interacting with Stellar, Soroban, and wallet adapters. This reference provides an overview of the most important exported functions, utilities, configuration objects, and clients available in the SDK.
+
+> **Note:** This page focuses on the core exported API—not hooks. For hook-specific documentation, visit: `/docs/hooks`.
+
+---
+
+## Core Modules
+
+The SDK consists of several core modules:
+
+* **Stellar Clients** — Horizon and Soroban RPC clients
+* **Wallet Adapters** — Freighter, Albedo, XBull, Ledger, and more
+* **Transaction Utilities** — builders, signers, envelope helpers
+* **Network Configuration** — simplified access to network settings
+* **Parsing & Formatting Utilities** — amounts, public keys, assets, and more
+
+Each module is documented below with the most important exports.
+
+---
+
+## 1. Stellar Clients
+
+### ### Horizon Client
+
+Provides read and write access to Horizon resources.
+
+**Exports:**
+
+* `getAccount(publicKey: string)` – Fetch account state
+* `getBalances(publicKey: string)` – Fetch all balances
+* `getEffects(publicKey: string, options?: { cursor?: string })` – Account effects
+* `getTransactions(publicKey: string, options?: Pagination)` – Paginated history
+* `getOrderbook(base: Asset, counter: Asset)` – Orderbook entries
+* `submitTransaction(xdr: string)` – Submit signed XDR
+
+**Example:**
+
+```ts
+import { horizonClient } from "nextellar";
+await horizonClient.getAccount("G...ABC");
+```
+
+---
+
+### Soroban RPC Client
+
+Communicate with Soroban contracts.
+
+**Exports:**
+
+* `simulateTransaction(xdr: string)` – Run preflight simulation
+* `invokeContract(params: InvokeParams)` – Invoke contract methods
+* `getEvents(filter: EventFilter)` – Stream or fetch events
+* `getLedgerInfo()` – Retrieve ledger metadata
+
+**Example:**
+
+```ts
+import { sorobanClient } from "nextellar";
+await sorobanClient.getLedgerInfo();
+```
+
+---
+
+## 2. Wallet API
+
+Nextellar exposes a standard wallet interface for supported adapters.
+
+### Common Wallet Methods
+
+* `connect()` – Initiate connection
+* `disconnect()` – Remove active session
+* `getPublicKey()` – Return active public key
+* `signTransaction(xdr: string)` – Sign XDR envelope
+* `isConnected()` – Returns connection state
+
+### Supported Wallet Adapters
+
+* `freighterAdapter`
+* `albedoAdapter`
+* `xbullAdapter`
+* `ledgerAdapter`
+
+**Example:**
+
+```ts
+import { freighterAdapter } from "nextellar";
+const pub = await freighterAdapter.getPublicKey();
+```
+
+---
+
+## 3. Transaction Utilities
+
+### `buildPaymentTransaction(options)`
+
+Build a payment operation inside a transaction.
+
+**Parameters:**
+
+* `sender: string`
+* `recipient: string`
+* `amount: string`
+* `asset: Asset`
+
+**Returns:**
+
+* XDR transaction envelope
+
+---
+
+### `buildCustomTransaction(ops: Operation[])`
+
+Create envelopes with one or more custom operations.
+
+---
+
+### `signWithWallet(wallet, xdr)`
+
+Sign a transaction using the connected wallet.
+
+---
+
+### `submitToHorizon(xdr)`
+
+Submit a signed envelope to the Horizon network.
+
+---
+
+## 4. Network Configuration
+
+Simplify access to network URLs, passphrases, and clients.
+
+### `getNetwork()`
+
+Returns the active network configuration.
+
+### `setNetwork(config)`
+
+Manually override the default network.
+
+### Network Values
+
+* `public` – Mainnet
+* `testnet` – Test Network
+* `futurenet` – Soroban-enabled network
+* `custom` – User-defined
+
+**Example:**
+
+```ts
+import { getNetwork } from "nextellar";
+const net = getNetwork();
+```
+
+---
+
+## 5. Asset Utilities
+
+### `parseAsset(code: string, issuer?: string)`
+
+Convert asset strings into structured objects.
+
+### `formatAmount(value: string)`
+
+For consistent UI formatting.
+
+### `isNative(asset)`
+
+Check if an asset is XLM.
+
+---
+
+## 6. Key & Account Utilities
+
+### `validatePublicKey(key: string)`
+
+Check if a string is a valid Stellar public key.
+
+### `generateKeypair()`
+
+Create a random Stellar keypair.
+
+### `deriveMuxedAccount(base: string, id: string)`
+
+Create a multiplexed account.
+
+---
+
+## 7. Error Types
+
+Nextellar uses structured error objects:
+
+* `WalletError`
+* `NetworkError`
+* `HorizonError`
+* `ContractError`
+* `ValidationError`
+
+These errors contain meaningful messages and metadata to help diagnose issues.
+
+---
+
+## 8. Types & Interfaces
+
+The SDK exports commonly used types:
+
+* `AccountResponse`
+* `Asset`
+* `TransactionResult`
+* `InvokeResult`
+* `WalletAdapter`
+* `NetworkConfig`
+
+You can import them directly:
+
+```ts
+import { Asset, WalletAdapter } from "nextellar";
+```
+
+---
+
+## Quick Links
+
+* [Hooks Overview](/docs/hooks)
+* [CLI Flags](/docs/cli/flags)
+* [Installation](/docs/getting-started/installation)

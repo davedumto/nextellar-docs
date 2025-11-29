@@ -14,6 +14,7 @@ import { Button } from '@/components/button';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import HeroGrid from '@/components/hero-grid';
 
 export default function Home() {
   const router = useRouter();
@@ -54,7 +55,7 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white via-white/95 to-slate-50 dark:from-gray-950 dark:via-gray-950/95 dark:to-gray-900 text-gray-900 dark:text-white">
-      <style>{`
+      {/* <style>{`
         @keyframes hueShift { 0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(30deg)}100%{filter:hue-rotate(0deg)}}
         .animated-gradient{background:linear-gradient(120deg, rgba(99,102,241,0.08), rgba(99,102,241,0.02) 30%, rgba(16,185,129,0.04) 60%);animation:hueShift 12s linear infinite}
         .glow{box-shadow:0 8px 30px rgba(99,102,241,0.12)}
@@ -65,9 +66,9 @@ export default function Home() {
         @keyframes rotateSlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       `}</style>
 
-      <div className="absolute inset-0 pointer-events-none z-0 animated-gradient" />
+      <div className="absolute inset-0 pointer-events-none z-0 animated-gradient" /> */}
 
-      <div className="relative z-10">
+      {/* <div className="relative z-10">
         <header className="sticky top-0 z-20 bg-white/40 dark:bg-gray-950/40 backdrop-blur border-b border-gray-200 dark:border-gray-800">
           <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
             <div className="flex items-center gap-0">
@@ -230,7 +231,6 @@ npm run dev`}
                   }}
                 />
 
-                {/* Static Stellar Card */}
                 <motion.div
                   initial={{ y: 8, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -264,7 +264,7 @@ npm run dev`}
                   </div>
                 </motion.div>
 
-                {/* Floating spark animation */}
+                
                 <motion.div
                   initial={{ scale: 0.88, opacity: 0.75 }}
                   animate={{
@@ -276,8 +276,6 @@ npm run dev`}
                 >
                   <Star className="w-8 h-8 text-yellow-400 drop-shadow-lg" />
                 </motion.div>
-
-                {/* Ambient glowing ring */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: [0.05, 0.15, 0.08] }}
@@ -448,7 +446,10 @@ npm run dev`}
           transition={{ duration: 1.6, delay: 0.3 }}
           className="absolute right-1/4 bottom-12 w-96 h-96 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/12 blur-3xl"
         />
-      </div>
+      </div> */}
+
+
+      <HeroGrid/>
     </div>
   );
 }
