@@ -43,19 +43,20 @@ The **Input** component is a fully customizable text input field that supports m
       );
     }
     ```
+
   </TabsContent>
 </Tabs>
 
 ## Props
 
-| Prop        | Type                                               | Default      | Description                                                                 |
-|-------------|----------------------------------------------------|--------------|-----------------------------------------------------------------------------|
-| `variant`   | `'outline' \| 'filled' \| 'none'`                  | `'outline'`  | Controls the input's background and border style.                          |
-| `size`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`            | `'sm'`       | Controls the height and padding of the input.                              |
-| `fullWidth` | `boolean`                                          | `false`      | If true, the input takes up full width of its container.                   |
-| `isError`   | `boolean`                                          | `false`      | Applies red border and ring to indicate error state.                       |
-| `isLoading` | `boolean`                                          | `false`      | Displays a spinning loader icon inside the input on the right.             |
-| `...props`  | `React.InputHTMLAttributes<HTMLInputElement>`      | –            | Inherits all native input attributes.                                      |
+| Prop        | Type                                          | Default     | Description                                                    |
+| ----------- | --------------------------------------------- | ----------- | -------------------------------------------------------------- |
+| `variant`   | `'outline' \| 'filled' \| 'none'`             | `'outline'` | Controls the input's background and border style.              |
+| `size`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`        | `'sm'`      | Controls the height and padding of the input.                  |
+| `fullWidth` | `boolean`                                     | `false`     | If true, the input takes up full width of its container.       |
+| `isError`   | `boolean`                                     | `false`     | Applies red border and ring to indicate error state.           |
+| `isLoading` | `boolean`                                     | `false`     | Displays a spinning loader icon inside the input on the right. |
+| `...props`  | `React.InputHTMLAttributes<HTMLInputElement>` |             | Inherits all native input attributes.                          |
 
 ## Styling
 
@@ -64,4 +65,3 @@ This input uses Tailwind CSS and `class-variance-authority` to manage style vari
 ## Accessibility
 
 Ensure to associate `<label>` components with the `Input` using the `htmlFor` prop for optimal accessibility.
-

@@ -1,0 +1,198 @@
+---
+title: Deployment
+description: Deploy your Nextellar Stellar dApp to production
+---
+
+# Deploy to Production
+
+This guide covers deploying your Nextellar application to production environments.
+
+## Prerequisites
+
+Before deploying:
+
+1. Your app builds successfully: `npm run build`
+2. Switch to Stellar Mainnet (if going live with real assets)
+3. Set up environment variables for production
+
+---
+
+## Environment Variables
+
+Create production environment variables:
+
+```bash
+# .env.production
+NEXT_PUBLIC_HORIZON_URL=https://horizon.stellar.org
+NEXT_PUBLIC_NETWORK=PUBLIC
+NEXT_PUBLIC_SOROBAN_RPC=https://soroban-rpc.stellar.org
+```
+
+> [!IMPORTANT]
+> For testnet, use:
+>
+> - Horizon: `https://horizon-testnet.stellar.org`
+> - Soroban RPC: `https://soroban-testnet.stellar.org`
+
+---
+
+## Vercel (Recommended)
+
+Vercel provides the best Next.js deployment experience.
+
+### One-Click Deploy
+
+1. Push your code to GitHub/GitLab/Bitbucket
+2. Go to [vercel.com](https://vercel.com)
+3. Click **Import Project**
+4. Select your repository
+5. Add environment variables
+6. Deploy!
+
+### Via CLI
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Deploy to production
+vercel --prod
+```
+
+### Environment Variables on Vercel
+
+Go to **Project Settings �Environment Variables** and add:
+
+| Variable                  | Value                         |
+| ------------------------- | ----------------------------- |
+| `NEXT_PUBLIC_HORIZON_URL` | `https://horizon.stellar.org` |
+| `NEXT_PUBLIC_NETWORK`     | `PUBLIC`                      |
+
+---
+
+## Netlify
+
+### Deploy
+
+1. Push to GitHub
+2. Connect repository on [netlify.com](https://netlify.com)
+3. Set build command: `npm run build`
+4. Set publish directory: `.next`
+5. Add environment variables
+6. Deploy
+
+### netlify.toml
+
+```toml
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+```
+
+---
+
+## Docker
+
+### Dockerfile
+
+```dockerfile
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+### Build and Run
+
+```bash
+docker build -t my-stellar-app .
+docker run -p 3000:3000 my-stellar-app
+```
+
+---
+
+## Production Checklist
+
+### Security
+
+- [ ] Remove any `signAndSubmitWithSecret` calls (dev-only)
+- [ ] Use environment variables for all endpoints
+- [ ] Enable HTTPS
+
+### Performance
+
+- [ ] Run `npm run build` and check for warnings
+- [ ] Enable caching headers for static assets
+- [ ] Consider CDN for global distribution
+
+### Stellar Network
+
+- [ ] Switch to Mainnet Horizon URL
+- [ ] Test wallet connections with real wallets
+- [ ] Verify transaction submissions on testnet first
+
+### Monitoring
+
+- [ ] Set up error tracking (Sentry, etc.)
+- [ ] Monitor Horizon API rate limits
+- [ ] Log transaction failures
+
+---
+
+## Switching Networks
+
+Update your `WalletProvider` for production:
+
+```tsx
+// For Mainnet
+<WalletProvider
+  horizonUrl="https://horizon.stellar.org"
+  network={Networks.PUBLIC}
+>
+  <App />
+</WalletProvider>
+```
+
+Or use environment variables:
+
+```tsx
+<WalletProvider
+  horizonUrl={process.env.NEXT_PUBLIC_HORIZON_URL}
+  network={
+    process.env.NEXT_PUBLIC_NETWORK === 'PUBLIC'
+      ? Networks.PUBLIC
+      : Networks.TESTNET
+  }
+>
+  <App />
+</WalletProvider>
+```
+
+---
+
+## Related
+
+- [CLI Configuration](/docs/cli/configuration) - Build options
+- [WalletProvider](/docs/hooks/wallet-provider) - Network configuration
+- [Quick Start](/docs/getting-started/quick-start) - Development setup

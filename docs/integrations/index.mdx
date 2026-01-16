@@ -1,0 +1,175 @@
+---
+title: Integrations
+description: How Nextellar integrates with Stellar, Soroban, and wallet providers
+---
+
+# Integrations
+
+Nextellar provides seamless integrations with the Stellar ecosystem, including Horizon API, Soroban smart contracts, and multi-wallet support.
+
+## Core Integrations
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <a
+    href="/integrations/horizon"
+    className="block p-4 border rounded-lg hover:border-primary no-underline"
+  >
+    <h4 className="font-semibold">Stellar Horizon</h4>
+    <span className="text-sm text-muted-foreground block">
+      Account queries, payments, transaction history, and DEX operations
+    </span>
+  </a>
+
+  <a
+    href="/integrations/soroban"
+    className="block p-4 border rounded-lg hover:border-primary no-underline"
+  >
+    <h4 className="font-semibold">Soroban (Smart Contracts)</h4>
+    <span className="text-sm text-muted-foreground block">
+      Invoke contract functions, listen to events, and build dApps
+    </span>
+  </a>
+
+  <a
+    href="/integrations/wallets"
+    className="block p-4 border rounded-lg hover:border-primary no-underline"
+  >
+    <h4 className="font-semibold">
+      Wallets (Freighter, Albedo, Lobstr, xBull, Hana)
+    </h4>
+    <span className="text-sm text-muted-foreground block">
+      Multi-wallet connection, signing, and session persistence
+    </span>
+  </a>
+
+  <a
+    href="/integrations/walletconnect"
+    className="block p-4 border rounded-lg hover:border-primary no-underline"
+  >
+    <h4 className="font-semibold">WalletConnect</h4>
+    <span className="text-sm text-muted-foreground block">
+      Connect wallet functionality with pre-built UI components
+    </span>
+  </a>
+
+  <a
+    href="/integrations/testing"
+    className="block p-4 border rounded-lg hover:border-primary no-underline"
+  >
+    <h4 className="font-semibold">Testing (MSW)</h4>
+    <span className="text-sm text-muted-foreground block">
+      Mock Service Worker for testing Stellar API interactions
+    </span>
+  </a>
+</div>
+
+---
+
+## Dependencies
+
+Nextellar integrations are powered by these libraries:
+
+| Library                           | Version | Purpose                           |
+| --------------------------------- | ------- | --------------------------------- |
+| `@stellar/stellar-sdk`            | ^14.4.3 | Horizon & Soroban RPC interaction |
+| `@creit.tech/stellar-wallets-kit` | ^1.8.0  | Multi-wallet support              |
+
+---
+
+## Architecture Overview
+
+```
+
+                  Your Application
+
+Components                     Hooks
+WalletConnectButton            useStellarWallet
+                               useStellarBalances
+                               useSorobanContract
+                               ...
+
+          Context (WalletProvider)
+
+  stellar-wallets-kit        stellar-sdk
+  (Wallet Connection)     (Horizon/Soroban RPC)
+
+                 Stellar Network
+       Horizon API            Soroban RPC
+�
+```
+
+---
+
+## Quick Start
+
+### 1. Wrap with WalletProvider
+
+```tsx
+// app/layout.tsx
+import { WalletProvider } from '@/contexts';
+
+export default function RootLayout({ children }) {
+  return (
+    <WalletProvider
+      horizonUrl="https://horizon-testnet.stellar.org"
+      network="TESTNET"
+    >
+      {children}
+    </WalletProvider>
+  );
+}
+```
+
+### 2. Use Pre-built Components
+
+```tsx
+import WalletConnectButton from '@/components/WalletConnectButton';
+
+function Header() {
+  return <WalletConnectButton />;
+}
+```
+
+### 3. Access Wallet State
+
+```tsx
+import { useWallet } from '@/contexts';
+
+function Dashboard() {
+  const { connected, publicKey, balances } = useWallet();
+
+  if (!connected) return <p>Connect wallet to continue</p>;
+
+  return <p>Balance: {balances[0]?.balance} XLM</p>;
+}
+```
+
+### 4. Interact with Smart Contracts
+
+```tsx
+import { useSorobanContract } from '@/hooks/useSorobanContract';
+
+function TokenBalance({ contractId }) {
+  const { callFunction } = useSorobanContract({ contractId });
+
+  const getBalance = async () => {
+    const balance = await callFunction('balance', [address]);
+    console.log('Token balance:', balance);
+  };
+}
+```
+
+---
+
+## Coming Soon
+
+- **WalletConnect** - WalletConnect protocol support
+- **Testing (MSW)** - Mock Service Worker for testing Stellar interactions
+
+---
+
+## Related
+
+- [SDK Overview](/docs/sdk/overview) - Full SDK documentation
+- [Hooks Reference](/docs/hooks) - All 8 production hooks
+- [Components](/docs/components/connect-wallet-button) - UI components

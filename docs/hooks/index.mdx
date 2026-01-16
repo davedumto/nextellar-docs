@@ -1,123 +1,165 @@
 ---
 title: 'Hooks'
-description: 'Explore all React hooks available in the Nextellar SDK with clear summaries and usage guidance.'
-date: 2025-03-12
+description: 'Explore all React hooks available in Nextellar with clear summaries and usage guidance.'
 ---
 
 # Hooks Overview
 
-Nextellar provides a set of powerful, typed React hooks that simplify working with Stellar accounts, balances, payments, smart contracts, wallets, and network status.  
-These hooks are lightweight, composable, and designed to fit naturally into modern Next.js applications.
+Nextellar provides a set of powerful, typed React hooks that simplify working with Stellar accounts, balances, payments, smart contracts, wallets, and DEX data. These hooks are lightweight, composable, and designed to fit naturally into modern Next.js applications.
 
 ---
 
 ## Why Hooks in Nextellar?
 
-Using hooks in Nextellar gives you:
-
-### ✅ Reactive Stellar data
+### Reactive Stellar data
 
 Live updates for accounts, balances, transactions, and contract values.
 
-### ✅ Cleaner UI components
+### Cleaner UI components
 
 Hooks keep UI components free from networking and blockchain logic.
 
-### ✅ Built-in loading & error states
+### Built-in loading & error states
 
 Every hook exposes a consistent, predictable return shape.
 
-### ✅ Full TypeScript support
+### Full TypeScript support
 
 Strong types for Stellar responses ensure correctness and better DX.
 
-### ✅ Wallet-aware functionality
+### Auto-consume provider config
 
-Hooks automatically detect and respond to wallet connection state.
-
----
-
-## Hook Categories
-
-Below is the complete list of hooks available in Nextellar, grouped by purpose.  
-Each hook has its own dedicated page with full examples and API details.
+Hooks automatically use `WalletProvider` settings when available.
 
 ---
 
-## **Account Hooks**
+## Available Hooks
 
-### **useStellarAccount**
+Below is the complete list of hooks included in Nextellar projects.
 
-Retrieve account state including sequence number, thresholds, and signers.
+---
 
-### **useStellarBalances**
+## **Wallet & Account Hooks**
 
-Fetch and track asset balances with automatic updates.
+### [useStellarWallet](/docs/hooks/use-stellar-wallet)
 
-### **useTransactionHistory**
+Complete wallet connection and account management. Supports multi-wallet (Freighter, Albedo, Lobstr, xBull, Hana), auto-reconnect, balance fetching, and payment sending.
 
-Load and paginate a user’s transaction history from Horizon.
+### [useStellarBalances](/docs/hooks/use-stellar-balances)
 
-### **useTrustlines**
+Fetch and track XLM and custom asset balances with optional polling. Handles unfunded accounts gracefully.
 
-Fetch trustlines and monitor changes such as added or removed assets.
+### [useTrustlines](/docs/hooks/use-trustlines)
+
+Manage asset trustlines - query existing trustlines and build change-trust transactions for wallet signing.
+
+### [useTransactionHistory](/docs/hooks/use-transaction-history)
+
+Load and paginate account transaction/operation history with cursor-based pagination.
 
 ---
 
 ## **Transaction Hooks**
 
-### **useStellarPayment**
+### [useStellarPayment](/docs/hooks/use-stellar-payment)
 
-Build and submit Stellar payment transactions with wallet signing.
+Build and submit Stellar payment transactions. Provides XDR building for wallet signing and dev-only secret key methods.
 
-### **useOfferBook**
+### [useOfferBook](/docs/hooks/use-offer-book)
 
-Fetch orderbook data for asset pairs (bids/asks) and subscribe to updates.
-
----
-
-## **Wallet Hooks**
-
-### **useWallet**
-
-Provides active wallet details, public key, and connection status.
-
-### **useConnectWallet**
-
-Trigger UI-safe wallet connection flows (Freighter, Albedo, etc.).
-
-### **useDisconnectWallet**
-
-Disconnect the active wallet and reset session state.
+Query Stellar DEX orderbook data for asset pairs (bids/asks) with optional polling.
 
 ---
 
 ## **Soroban (Smart Contract) Hooks**
 
-### **useSorobanContract**
+### [useSorobanContract](/docs/hooks/use-soroban-contract)
 
-Read and write Soroban contract methods using the RPC client.
+Interact with Soroban smart contracts. Read contract state via simulation and build invoke transactions for signing.
 
-### **useSorobanEvents**
+### [useSorobanEvents](/docs/hooks/use-soroban-events)
 
-Subscribe to Soroban contract events and stream updates in real time.
-
----
-
-## **Network Hooks**
-
-### **useNetwork**
-
-Access your app’s active Stellar network configuration (testnet, futurenet, etc.).
+Subscribe to Soroban contract events with cursor-based pagination and optional polling.
 
 ---
 
 ## How Nextellar Hooks Work
 
-Nextellar’s hooks are designed to stay out of your way and let you build fast. Each hook sits on top of lightweight Stellar utilities and wallet adapters, turning complex blockchain logic into simple, predictable React APIs. Instead of managing network calls, parsing responses, or handling edge cases, you work with clean, focused hooks that compose naturally — so you can spend more time building features and less time wiring things together.
+Nextellar's hooks are designed to stay out of your way and let you build fast. Each hook sits on top of the Stellar SDK and wallet adapters, turning complex blockchain logic into simple, predictable React APIs.
+
+### Auto-Consume Pattern
+
+All hooks automatically consume configuration from `WalletProvider` when available:
+
+```tsx
+// Provider sets global config
+<WalletProvider horizonUrl="https://horizon.stellar.org">
+  <App />
+</WalletProvider>;
+
+// Hooks auto-consume the horizonUrl
+function MyComponent() {
+  const { balances } = useStellarBalances(publicKey);
+  // Uses mainnet automatically!
+}
+```
+
+### Override Per-Component
+
+You can always override the provider config:
+
+```tsx
+const { balances } = useStellarBalances(publicKey, {
+  horizonUrl: 'https://horizon-testnet.stellar.org',
+});
+```
+
+### Standalone Usage
+
+Hooks work without a provider too:
+
+```tsx
+// No WalletProvider needed
+const { balances } = useStellarBalances(publicKey, {
+  horizonUrl: 'https://horizon-testnet.stellar.org',
+});
+```
+
+---
+
+## Common Patterns
+
+### Loading States
+
+All hooks provide consistent loading and error states:
+
+```tsx
+const { data, loading, error, refresh } = useSomeHook();
+
+if (loading) return <Spinner />;
+if (error) return <button onClick={refresh}>Retry</button>;
+return <DisplayData data={data} />;
+```
+
+### XDR Building Pattern
+
+Transaction hooks follow a consistent pattern for wallet integration:
+
+```tsx
+// 1. Build unsigned XDR
+const xdr = await buildPaymentXDR({ from, to, amount });
+
+// 2. Sign with external wallet (Freighter, etc.)
+const signedXdr = await wallet.signTransaction(xdr);
+
+// 3. Submit signed transaction
+const result = await submitSignedXDR(signedXdr);
+```
+
+---
 
 ## Quick Links
 
-- **CLI Commands** → [View Docs](/docs/cli/commands)
-- **SDK Overview** → [View Docs](/docs/sdk/overview)
-- **API Reference** → [View Docs](/docs/sdk/api-reference)
+- [Getting Started](/docs/getting-started/quick-start) �Build your first dApp
+- [CLI Commands](/docs/cli/commands) �Scaffold options
+- [WalletProvider](/docs/hooks/wallet-provider) �Global wallet context

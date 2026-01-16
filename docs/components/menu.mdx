@@ -22,10 +22,10 @@ The `Menu` component provides a dropdown menu with options for standard and auto
 
         const [search, setSearch] = useState("");
         const menuItems = [
-          { label: "Home", icon: "🏠" },
-          { label: "Settings", icon: "⚙️" },
-          { label: "Profile", icon: "👤" },
-          { label: "Logout", icon: "🚪" },
+          { label: "Home", icon: "" },
+          { label: "Settings", icon: "" },
+          { label: "Profile", icon: "" },
+          { label: "Logout", icon: "" },
         ];
 
         const filteredItems = menuItems.filter((item) =>
@@ -40,10 +40,10 @@ The `Menu` component provides a dropdown menu with options for standard and auto
               </MenuTrigger>
               <PopMenu>
                 <MenuItem>
-                  <span role="img" aria-label="home">🏠</span> Home
+                  <span role="img" aria-label="home"></span> Home
                 </MenuItem>
                 <MenuItem>
-                  <span role="img" aria-label="settings">⚙️</span> Settings
+                  <span role="img" aria-label="settings"></span> Settings
                 </MenuItem>
               </PopMenu>
             </Menu>
@@ -82,10 +82,10 @@ import { Menu, MenuTrigger, PopMenu, MenuItem } from '@/components/menu';
 export default function Example() {
   const [search, setSearch] = useState('');
   const menuItems = [
-    { label: 'Home', icon: '🏠' },
-    { label: 'Settings', icon: '⚙️' },
-    { label: 'Profile', icon: '👤' },
-    { label: 'Logout', icon: '🚪' },
+    { label: 'Home', icon: '' },
+    { label: 'Settings', icon: '' },
+    { label: 'Profile', icon: '' },
+    { label: 'Logout', icon: '' },
   ];
 
   const filteredItems = menuItems.filter((item) =>
@@ -100,16 +100,10 @@ export default function Example() {
         </MenuTrigger>
         <PopMenu>
           <MenuItem>
-            <span role="img" aria-label="home">
-              🏠
-            </span>{' '}
-            Home
+            <span role="img" aria-label="home"></span> Home
           </MenuItem>
           <MenuItem>
-            <span role="img" aria-label="settings">
-              ⚙️
-            </span>{' '}
-            Settings
+            <span role="img" aria-label="settings"></span> Settings
           </MenuItem>
         </PopMenu>
       </Menu>
@@ -170,16 +164,10 @@ export default function Example() {
   </MenuTrigger>
   <PopMenu>
     <MenuItem>
-      <span role="img" aria-label="settings">
-        ⚙️
-      </span>{' '}
-      Settings
+      <span role="img" aria-label="settings"></span> Settings
     </MenuItem>
     <MenuItem>
-      <span role="img" aria-label="logout">
-        🚪
-      </span>{' '}
-      Logout
+      <span role="img" aria-label="logout"></span> Logout
     </MenuItem>
   </PopMenu>
 </Menu>

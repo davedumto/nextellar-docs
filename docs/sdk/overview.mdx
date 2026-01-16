@@ -1,85 +1,173 @@
 ---
-
 title: SDK Overview
-description: High-level overview of the Nextellar SDK, goals, architecture, and where to find hooks and API references.
-date: 2025-03-12
+description: High-level overview of the Nextellar SDK - hooks, utilities, and Stellar integration
 ---
 
-# Nextellar SDK — Overview
+# Nextellar SDK Overview
 
-The **Nextellar SDK** is a set of client-side utilities, React hooks, and typed APIs that make interacting with the Stellar network (Horizon + Soroban) simple, reliable, and composable within Next.js applications. The SDK focuses on ergonomics, strong typing, and production-readiness so teams can build wallet-connected experiences and contract-driven features quickly.
-
----
-
-## Goals
-
-* **Developer ergonomics** — Provide small, composable hooks and helpers that do one thing well.
-* **Type safety** — Ship TypeScript-first APIs with accurate typings and JSDoc for IDE autocompletion.
-* **Stellar-first primitives** — Encapsulate Horizon / Soroban interactions behind intuitive abstractions such as `useStellarAccount`, `useStellarPayment`, and `useSorobanContract`.
-* **Testability** — Support network mocking (MSW) and deterministic behavior for unit/integration testing.
-* **Extensibility** — Keep the SDK modular so teams can replace or extend adapters (custom wallets, RPC endpoints) without forked codebases.
+The **Nextellar SDK** is a set of React hooks, utilities, and typed APIs that make interacting with the Stellar network simple, reliable, and composable within Next.js applications. Built on top of `@stellar/stellar-sdk` and `@creit.tech/stellar-wallets-kit`, the SDK provides production-ready abstractions for wallet connection, payments, smart contracts, and more.
 
 ---
 
-## What’s included
+## Core Components
 
-* **React hooks** for common flow (accounts, balances, trustlines, payments, transaction history).
-* **Soroban helpers** for contract calls, fee estimation, and event subscriptions.
-* **Typed clients** that wrap Horizon and Soroban RPC interactions.
-* **UI primitives** (lightweight helpers) that pair well with the shadcn/ui component set in the scaffold.
-* **Testing utilities** to stub Horizon/Soroban responses using MSW and helper matchers for Jest.
+### React Hooks
 
----
+8 production-ready hooks for common Stellar operations:
 
-## Architecture & Patterns
+| Hook                                                           | Purpose                                     |
+| -------------------------------------------------------------- | ------------------------------------------- |
+| [`useStellarWallet`](/docs/hooks/use-stellar-wallet)           | Wallet connection and account management    |
+| [`useStellarBalances`](/docs/hooks/use-stellar-balances)       | Real-time balance tracking with polling     |
+| [`useStellarPayment`](/docs/hooks/use-stellar-payment)         | Payment transaction building and submission |
+| [`useTrustlines`](/docs/hooks/use-trustlines)                  | Asset trustline management                  |
+| [`useTransactionHistory`](/docs/hooks/use-transaction-history) | Paginated transaction history               |
+| [`useSorobanContract`](/docs/hooks/use-soroban-contract)       | Smart contract interaction                  |
+| [`useSorobanEvents`](/docs/hooks/use-soroban-events)           | Contract event listening                    |
+| [`useOfferBook`](/docs/hooks/use-offer-book)                   | DEX orderbook queries                       |
 
-1. **Client layer (`lib/stellar`)** — Creates configured instances for Horizon and Soroban RPC clients. This layer is side-effect free and test-friendly.
+### Context Providers
 
-2. **Adapter layer** — Wallet adapters (Freighter, XBull, Ledger) expose a common shape so hooks can remain wallet-agnostic. Adapters are responsible for connection, signing operations, and public key management.
+- **WalletProvider** - Global wallet state management
+- **useWallet** - Access wallet state from any component
+- **useWalletConfig** - Access provider configuration in standalone hooks
 
-3. **Hook layer (`hooks/*`)** — Lightweight, composable React hooks built on top of the client and adapter layers. Hooks handle orchestration (caching, polling, subscriptions) and expose minimal imperative APIs where necessary (e.g., `sendPayment()`).
+### UI Components
 
-4. **UI helpers** — Non-visual helpers for formatting balances, parsing operations, and deriving transaction statuses.
+- **WalletConnectButton** - Pre-built wallet connection button with dropdown
 
-5. **Testing utilities** — Utilities and MSW handlers that mirror real Horizon and Soroban responses for offline testing.
+### Utility Layer
 
----
-
-## Stability & Versioning
-
-The SDK follows semantic versioning. Breaking changes will be communicated in release notes and migration guides. Public APIs in the `hooks/` and `lib/stellar/` folders are considered the stable surface; internal utilities may change more frequently.
-
----
-
-## Security Considerations
-
-* **Never expose private keys** client-side. Wallet adapters must handle signing operations securely.
-* **Validate contract inputs** before constructing transactions to avoid injection or malformed transactions.
-* **Rate-limit horizon requests** and handle transient errors (retry/backoff) gracefully.
+- **stellar-wallet-kit.ts** - Wallet adapter configuration
+- Automatic XDR building and signing
+- Network configuration helpers
 
 ---
 
-## Getting started (links)
+## Architecture
 
-* SDK hooks reference → **[Hooks](/docs/sdk/hooks)**
-* Full API reference → **[API Reference](/docs/sdk/api-reference)**
+```mermaid
+flowchart TB
+    APP["Your Application"]
+    HOOKS["React Hooks<br/>useStellarWallet · useStellarPayment · useStellarBalances"]
+    CONTEXT["WalletProvider Context + Config"]
+    SDK1["Stellar Wallets Kit<br/>Freighter · Albedo · Lobstr · xBull · Hana"]
+    SDK2["Stellar SDK<br/>Horizon · Soroban RPC"]
+    NETWORK["Stellar Network<br/>Horizon API · Soroban RPC"]
 
-For a quick, practical start, jump to the **Hooks** page which contains runnable examples and usage patterns.
+    APP --> HOOKS
+    HOOKS --> CONTEXT
+    CONTEXT --> SDK1
+    CONTEXT --> SDK2
+    SDK1 --> NETWORK
+    SDK2 --> NETWORK
+```
+
+---
+
+## Key Features
+
+### Auto-Consume Pattern
+
+All hooks automatically consume configuration from `WalletProvider`:
+
+```tsx
+<WalletProvider horizonUrl="https://horizon.stellar.org">
+  <App /> {/* All hooks use mainnet automatically */}
+</WalletProvider>
+```
+
+### XDR Building Pattern
+
+Hooks provide methods to build unsigned XDR for external wallet signing:
+
+```tsx
+// Build unsigned transaction
+const xdr = await buildPaymentXDR({ from, to, amount });
+
+// Sign with wallet
+const signedXdr = await wallet.signTransaction(xdr);
+
+// Submit to network
+const result = await submitSignedXDR(signedXdr);
+```
+
+### Type Safety
+
+Full TypeScript support with comprehensive type definitions:
+
+```typescript
+interface Balance {
+  asset_type: string;
+  asset_code?: string;
+  asset_issuer?: string;
+  balance: string;
+  limit?: string;
+}
+```
+
+### Error Handling
+
+Consistent loading/error states across all hooks:
+
+```tsx
+const { data, loading, error, refresh } = useSomeHook();
+
+if (loading) return <Spinner />;
+if (error) return <button onClick={refresh}>Retry</button>;
+```
 
 ---
 
-## Contributing & Roadmap
+## Dependencies
 
-Contributions to SDK APIs, adapters, and tests are welcome. When proposing a change:
+The SDK is built on:
 
-1. Open an issue describing the motivation and intended API.
-2. Submit a small, focused PR with tests and typings updated.
-3. Add migration notes for breaking changes.
-
-Planned items for the SDK roadmap:
-
-* Expanded Soroban contract examples and event helpers.
-* Official MSW fixtures for Horizon & Soroban.
-* A small CLI utility to generate hook and component skeletons (`nextellar generate`).
+| Package                           | Version | Purpose                     |
+| --------------------------------- | ------- | --------------------------- |
+| `@stellar/stellar-sdk`            | ^14.0.0 | Horizon/Soroban interaction |
+| `@creit.tech/stellar-wallets-kit` | ^1.8.0  | Multi-wallet support        |
+| `react`                           | ^19.0.0 | React hooks                 |
+| `next`                            | ^16.0.0 | App framework               |
 
 ---
+
+## Security
+
+- **Never expose private keys** - Wallet adapters handle signing securely
+- **Dev-only methods** - `*WithSecret()` functions are clearly marked for testing only
+- **Input validation** - All hooks validate addresses, amounts, and memos
+- **Rate limiting** - Consider implementing rate limits for Horizon requests
+
+---
+
+## Quick Start
+
+1. **Scaffold a project**
+
+   ```bash
+   npx nextellar my-app
+   ```
+
+2. **Wrap with WalletProvider**
+
+   ```tsx
+   <WalletProvider>
+     <App />
+   </WalletProvider>
+   ```
+
+3. **Use hooks**
+   ```tsx
+   const { connect, publicKey } = useWallet();
+   const { balances } = useStellarBalances(publicKey);
+   ```
+
+---
+
+## Related Documentation
+
+- [Hooks Reference](/docs/hooks) - All 8 hooks with examples
+- [API Reference](/docs/sdk/api-reference) - Type definitions and utilities
+- [Wallet Integration](/docs/sdk/wallet-integration) - Multi-wallet setup
+- [CLI Reference](/docs/cli/commands) - Scaffolding options

@@ -2,7 +2,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { allDocs } from 'contentlayer/generated';
 import SearchDialog from '@/components/search-dialog';
 import { sidebarNav } from 'config/sidebar';
@@ -14,12 +13,9 @@ import {
   Sidebar,
   SidebarHeader,
   SidebarContent,
-  SidebarFooter,
   SidebarMenuItem,
   SidebarTrigger,
   SidebarHeaderLogo,
-  SidebarHeaderTitle,
-  UserAvatar,
   NestedLink,
 } from '@/components/sidebar';
 import { Github } from 'lucide-react';
@@ -48,9 +44,9 @@ export default function DocsLayout({
         showIconsOnCollapse={true}
       >
         <Sidebar>
-          <SidebarHeader  >
+          <SidebarHeader>
             <SidebarHeaderLogo
-            className='w-auto h-auto'
+              className="w-auto h-auto"
               logo={
                 <Image
                   alt="logo"
@@ -62,7 +58,7 @@ export default function DocsLayout({
               }
             />
             <SidebarHeaderLogo
-            className='w-auto h-auto'
+              className="w-auto h-auto"
               logo={
                 <Image
                   alt="logo"
@@ -123,17 +119,19 @@ export default function DocsLayout({
 
         {/* Main Content */}
         <MainContent>
-          <Header className="justify-between py-2">
-            <div className="flex items-center gap-4">
+          <Header className="justify-between py-2 gap-2">
+            <div className="flex items-center gap-2 md:gap-4 shrink-0">
               <SidebarTrigger />
-              <h1 className="text-xl font-bold">Documentation</h1>
+              <h1 className="text-lg md:text-xl font-bold hidden sm:block">
+                Documentation
+              </h1>
             </div>
-            <div className="flex gap-2 items-center pr-0 lg:pr-8">
+            <div className="flex gap-1 md:gap-2 items-center shrink-0">
               <SearchDialog searchData={allDocs} />
               <ModeToggle />
               <Button
                 onClick={() =>
-                  router.push('https://github.com/sanjayc208/pinedocs')
+                  router.push('https://github.com/nextellarlabs/nextellar')
                 }
               >
                 <Github className="h-[1.2rem] w-[1.2rem] transition-all" />

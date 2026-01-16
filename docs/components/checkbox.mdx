@@ -56,19 +56,20 @@ The **Checkbox** component is a flexible, accessible checkbox built using Tailwi
       );
     }
     ```
+
   </TabsContent>
 </Tabs>
 
 ## Props
 
-| Prop       | Type                                             | Default | Description                                                      |
-| ---------- | ------------------------------------------------ | ------- | ---------------------------------------------------------------- |
-| `id`       | `string`                                         | –       | Optional ID for the checkbox element. Auto-generated if omitted. |
-| `className`| `string`                                         | `""`    | Additional classes for the outer box.                            |
-| `disabled` | `boolean`                                        | `false` | Disables the checkbox.                                           |
-| `checked`  | `boolean`                                        | –       | Controls the checkbox state (used in controlled components).     |
-| `defaultChecked` | `boolean`                                  | –       | Initial checked state (for uncontrolled components).             |
-| `...props` | `React.InputHTMLAttributes<HTMLInputElement>`    | –       | All other native checkbox attributes like `onChange`, `name`, etc.|
+| Prop             | Type                                          | Default | Description                                                        |
+| ---------------- | --------------------------------------------- | ------- | ------------------------------------------------------------------ |
+| `id`             | `string`                                      |         | Optional ID for the checkbox element. Auto-generated if omitted.   |
+| `className`      | `string`                                      | `""`    | Additional classes for the outer box.                              |
+| `disabled`       | `boolean`                                     | `false` | Disables the checkbox.                                             |
+| `checked`        | `boolean`                                     |         | Controls the checkbox state (used in controlled components).       |
+| `defaultChecked` | `boolean`                                     |         | Initial checked state (for uncontrolled components).               |
+| `...props`       | `React.InputHTMLAttributes<HTMLInputElement>` |         | All other native checkbox attributes like `onChange`, `name`, etc. |
 
 ## Styling
 
@@ -85,3 +86,4 @@ The **Checkbox** component is a flexible, accessible checkbox built using Tailwi
   onChange={(e) => setAccepted(e.target.checked)}
   className="border-green-500"
 />
+```
