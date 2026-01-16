@@ -9,11 +9,11 @@ The `useSorobanContract` hook provides a complete interface for interacting with
 
 ## Features
 
-- 📞 **Read-Only Calls**: Simulate contract functions without submitting transactions
-- 🔨 **Build Invocations**: Create unsigned contract invocation XDR
-- 🔐 **Dev-Only Submission**: Sign and submit with secret keys (testing)
-- 🔄 **Automatic XDR Conversion**: JavaScript ↔ Stellar type conversion
-- 📊 **Complex Types**: Support for maps, vectors, addresses, and custom types
+- **Read-Only Calls**: Simulate contract functions without submitting transactions
+- **Build Invocations**: Create unsigned contract invocation XDR
+- **Dev-Only Submission**: Sign and submit with secret keys (testing)
+- **Automatic XDR Conversion**: JavaScript �Stellar type conversion
+- **Complex Types**: Support for maps, vectors, addresses, and custom types
 
 ## Basic Usage
 
@@ -92,12 +92,12 @@ const result = await callFunction('transfer', [
 
 **Supported Argument Types:**
 
-- `string` → ScvString
-- `number` → ScvI32
-- `boolean` → ScvBool
-- `Address` → ScvAddress
-- `Array` → ScvVec
-- `Object` → ScvMap
+- `string` �ScvString
+- `number` �ScvI32
+- `boolean` �ScvBool
+- `Address` �ScvAddress
+- `Array` �ScvVec
+- `Object` �ScvMap
 
 ### buildInvokeXDR()
 
@@ -113,7 +113,7 @@ const xdr = await buildInvokeXDR('mint', [
 const signedXDR = await wallet.signTransaction(xdr);
 ```
 
-### submitInvokeWithSecret() ⚠️
+### submitInvokeWithSecret()
 
 **DEV-ONLY**: Sign and submit contract invocation.
 
@@ -166,19 +166,19 @@ try {
 
 ```tsx
 // String
-await callFunction('set_name', ['Alice']); // → ScvString
+await callFunction('set_name', ['Alice']); // �ScvString
 
 // Number
-await callFunction('set_count', [42]); // → ScvI32
+await callFunction('set_count', [42]); // �ScvI32
 
 // Boolean
-await callFunction('set_active', [true]); // → ScvBool
+await callFunction('set_active', [true]); // �ScvBool
 
 // Array
-await callFunction('set_list', [[1, 2, 3]]); // → ScvVec
+await callFunction('set_list', [[1, 2, 3]]); // �ScvVec
 
 // Object
-await callFunction('set_data', [{ key: 'value' }]); // → ScvMap
+await callFunction('set_data', [{ key: 'value' }]); // �ScvMap
 ```
 
 ### XDR to JavaScript
@@ -186,11 +186,11 @@ await callFunction('set_data', [{ key: 'value' }]); // → ScvMap
 ```tsx
 const result = await callFunction('get_data', []);
 
-// ScvString → string
-// ScvI32 → number
-// ScvBool → boolean
-// ScvVec → Array
-// ScvMap → Object
+// ScvString �string
+// ScvI32 �number
+// ScvBool �boolean
+// ScvVec �Array
+// ScvMap �Object
 ```
 
 ## Best Practices
@@ -229,8 +229,8 @@ if (typeof result !== 'number') {
 
 ## Related Hooks
 
-- [`useSorobanEvents`](/hooks/use-soroban-events) - Listen to contract events
-- [`useStellarWallet`](/hooks/use-stellar-wallet) - Sign contract invocations
+- [`useSorobanEvents`](/docs/hooks/use-soroban-events) - Listen to contract events
+- [`useStellarWallet`](/docs/hooks/use-stellar-wallet) - Sign contract invocations
 
 ## Next Steps
 
@@ -240,9 +240,7 @@ if (typeof result !== 'number') {
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
     <h4 className="font-semibold mb-2">useSorobanEvents</h4>
-    <p className="text-sm text-muted-foreground">
-      Listen to smart contract events
-    </p>
+    <span className="text-sm text-muted-foreground block">Listen to smart contract events</span>
   </a>
 
   <a
@@ -250,8 +248,6 @@ if (typeof result !== 'number') {
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
     <h4 className="font-semibold mb-2">Smart Contracts Guide</h4>
-    <p className="text-sm text-muted-foreground">
-      Complete Soroban integration guide
-    </p>
+    <span className="text-sm text-muted-foreground block">Complete Soroban integration guide</span>
   </a>
 </div>

@@ -2,7 +2,7 @@ import { allDocs } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 import { Mdx } from '@/components/mdx-components';
 import Breadcrumb from '@/components/bread-crumb';
-import Toc from '@/components/toc';
+import AutoToc from '@/components/auto-toc';
 
 type tParams = Promise<{ slug: string[] }>;
 
@@ -54,7 +54,7 @@ const DocsPage = async ({ params }: { params: tParams }) => {
         <Mdx code={doc.body.code} />
       </article>
 
-      <Toc doc={doc} />
+      <AutoToc />
     </div>
   );
 };

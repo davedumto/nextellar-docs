@@ -7,11 +7,7 @@ import React, {
   useImperativeHandle,
   useEffect,
 } from 'react';
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-} from '@/components/dialog';
+import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import { Input } from '@/components/input';
 import SearchButton from '@/components/search-button';
 import { Text, Search } from 'lucide-react';
@@ -30,6 +26,32 @@ export interface SearchDialogProps {
 export interface SearchDialogHandle {
   close: () => void;
   open: () => void;
+}
+
+// Strip markdown/HTML from raw MDX content for clean search display
+function stripMarkdown(text: string): string {
+  return (
+    text
+      // Remove code blocks
+      .replace(/```[\s\S]*?```/g, '')
+      // Remove inline code
+      .replace(/`[^`]+`/g, '')
+      // Remove HTML tags
+      .replace(/<[^>]+>/g, '')
+      // Remove markdown links, keep text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      // Remove markdown headers
+      .replace(/#{1,6}\s?/g, '')
+      // Remove bold/italic
+      .replace(/\*{1,2}([^*]+)\*{1,2}/g, '$1')
+      // Remove horizontal rules
+      .replace(/---+/g, '')
+      // Remove frontmatter
+      .replace(/^---[\s\S]*?---/g, '')
+      // Clean up extra whitespace
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 }
 
 function highlightText(text: string, searchTerm: string): React.ReactNode {
@@ -101,22 +123,19 @@ const SearchDialog = forwardRef<SearchDialogHandle, SearchDialogProps>(
       const q = query.toLowerCase();
       return searchData.filter((doc) => {
         const title = doc.title.toLowerCase();
-        const description = (doc.body.raw || '').toLowerCase();
+        const description = stripMarkdown(doc.body.raw || '').toLowerCase();
         return title.includes(q) || description.includes(q);
       });
     }, [query, searchData]);
 
     return (
       <Dialog open={open} setOpen={setOpen}>
-        <DialogTrigger className='hidden sm:block'>
-          <SearchButton
-            size="sm"
-            placeholder="Search documentation.."
-          />
+        <DialogTrigger className="hidden sm:block">
+          <SearchButton size="sm" placeholder="Search documentation.." />
         </DialogTrigger>
         <DialogContent className="fixed h-auto sm:max-w-xl bg-muted p-2 top-40">
-        {/* Close Button */}
-        {/* <DialogCloseTrigger asChild>
+          {/* Close Button */}
+          {/* <DialogCloseTrigger asChild>
           <button
             className="cursor-pointer border border-border text-lg absolute -top-2 -right-2 bg-muted text-black dark:text-white rounded-full w-5 h-5 flex items-center justify-center shadow"
             aria-label="Close"
@@ -157,7 +176,10 @@ const SearchDialog = forwardRef<SearchDialogHandle, SearchDialogProps>(
                           <Text /> <div>{highlightText(doc.title, query)}</div>
                         </div>
                         <div className="text-sm">
-                          {getSnippet(doc.body.raw || 'No description', query)}
+                          {getSnippet(
+                            stripMarkdown(doc.body.raw || ''),
+                            query
+                          ) || 'No description'}
                         </div>
                       </div>
                     </Link>

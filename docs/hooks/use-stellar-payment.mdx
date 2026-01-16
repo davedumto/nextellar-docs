@@ -9,11 +9,11 @@ The `useStellarPayment` hook provides advanced utilities for building, signing, 
 
 ## Features
 
-- 🔨 **Build Unsigned XDR**: Create transaction XDR for external wallet signing
-- 📤 **Submit Signed Transactions**: Submit pre-signed XDR to the network
-- 🔐 **Dev-Only Signing**: Sign and submit with secret keys (testing only)
-- ✅ **Comprehensive Validation**: Address, amount, and memo validation
-- ⚠️ **Detailed Error Handling**: Horizon error code interpretation
+- **Build Unsigned XDR**: Create transaction XDR for external wallet signing
+- **Submit Signed Transactions**: Submit pre-signed XDR to the network
+- **Dev-Only Signing**: Sign and submit with secret keys (testing only)
+- **Comprehensive Validation**: Address, amount, and memo validation
+- **Detailed Error Handling**: Horizon error code interpretation
 
 ## Basic Usage
 
@@ -140,7 +140,7 @@ if (result.success) {
 - `error`: error message if failed
 - `raw`: raw Horizon response
 
-### signAndSubmitWithSecret() ⚠️
+### signAndSubmitWithSecret()
 
 **DEV-ONLY**: Sign and submit using a secret key.
 
@@ -328,9 +328,9 @@ if (!confirmed) return;
 
 ## Related Hooks
 
-- [`useStellarWallet`](/hooks/use-stellar-wallet) - Simple wallet connection and payments
-- [`useTransactionHistory`](/hooks/use-transaction-history) - View payment history
-- [`useStellarBalances`](/hooks/use-stellar-balances) - Check balances before sending
+- [`useStellarWallet`](/docs/hooks/use-stellar-wallet) - Simple wallet connection and payments
+- [`useTransactionHistory`](/docs/hooks/use-transaction-history) - View payment history
+- [`useStellarBalances`](/docs/hooks/use-stellar-balances) - Check balances before sending
 
 ## Next Steps
 
@@ -348,8 +348,6 @@ if (!confirmed) return;
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
     <h4 className="font-semibold mb-2">Payment Flows Guide</h4>
-    <p className="text-sm text-muted-foreground">
-      Complete payment implementation patterns
-    </p>
+    <span className="text-sm text-muted-foreground block">Complete payment implementation patterns</span>
   </a>
 </div>

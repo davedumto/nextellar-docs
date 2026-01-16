@@ -32,11 +32,11 @@ npx nextellar my-stellar-app
 
 This command will:
 
-1. ✅ Scaffold a complete Next.js 16 application
-2. ✅ Install all dependencies automatically
-3. ✅ Configure Stellar SDK and wallet adapters
-4. ✅ Set up TypeScript and Tailwind CSS
-5. ✅ Create 8 production-ready React hooks
+1. Scaffold a complete Next.js 16 application
+2. Install all dependencies automatically
+3. Configure Stellar SDK and wallet adapters
+4. Set up TypeScript and Tailwind CSS
+5. Create 8 production-ready React hooks
 
 ### Alternative: Global Installation
 
@@ -59,15 +59,15 @@ npx nextellar <project-name> [options]
 
 ### Available Options
 
-| Option                   | Description                  | Default                 |
-| ------------------------ | ---------------------------- | ----------------------- |
-| `--typescript`           | Generate TypeScript project  | `true`                  |
-| `--skip-install`         | Skip dependency installation | `false`                 |
-| `--package-manager <pm>` | Choose npm, yarn, or pnpm    | Auto-detected           |
-| `--horizon-url <url>`    | Custom Horizon endpoint      | Testnet                 |
-| `--soroban-url <url>`    | Custom Soroban RPC endpoint  | Testnet                 |
-| `--wallets <list>`       | Comma-separated wallet list  | freighter,albedo,lobstr |
-| `--install-timeout <ms>` | Installation timeout         | 1200000 (20 min)        |
+| Option                   | Description                  | Default                |
+| ------------------------ | ---------------------------- | ---------------------- |
+| `--typescript`           | Generate TypeScript project  | `true`                 |
+| `--skip-install`         | Skip dependency installation | `false`                |
+| `--package-manager <pm>` | Choose npm, yarn, or pnpm    | Auto-detected          |
+| `--horizon-url <url>`    | Custom Horizon endpoint      | Testnet                |
+| `--soroban-url <url>`    | Custom Soroban RPC endpoint  | Testnet                |
+| `--wallets <list>`       | Supported wallet adapters    | Auto-detects installed |
+| `--install-timeout <ms>` | Installation timeout         | 1200000 (20 min)       |
 
 ### Examples
 
@@ -124,31 +124,31 @@ Your new Nextellar project includes:
 
 ```
 my-stellar-app/
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/             # React components
-│   │   └── WalletConnectButton.tsx
-│   ├── contexts/               # React contexts
-│   │   └── WalletProvider.tsx
-│   ├── hooks/                  # Custom Stellar hooks
-│   │   ├── useStellarWallet.ts
-│   │   ├── useStellarPayment.ts
-│   │   ├── useSorobanContract.ts
-│   │   ├── useStellarBalances.ts
-│   │   ├── useTrustlines.ts
-│   │   ├── useTransactionHistory.ts
-│   │   ├── useSorobanEvents.ts
-│   │   └── useOfferBook.ts
-│   └── lib/                    # Utility functions
-│       └── stellar-wallet-kit.ts
-├── public/                     # Static assets
-├── package.json
-├── tsconfig.json
-├── tailwind.config.ts
-├── next.config.ts
-└── README.md
+src/
+  app/                    # Next.js App Router
+    layout.tsx
+    page.tsx
+  components/             # React components
+    WalletConnectButton.tsx
+  contexts/               # React contexts
+    WalletProvider.tsx
+  hooks/                  # Custom Stellar hooks
+    useStellarWallet.ts
+    useStellarPayment.ts
+    useSorobanContract.ts
+    useStellarBalances.ts
+    useTrustlines.ts
+    useTransactionHistory.ts
+    useSorobanEvents.ts
+    useOfferBook.ts
+  lib/                    # Utility functions
+      stellar-wallet-kit.ts
+public/                     # Static assets
+package.json
+tsconfig.json
+tailwind.config.ts
+next.config.ts
+README.md
 ```
 
 ## Running Your Project
@@ -218,45 +218,41 @@ npm install
     href="/getting-started/quick-start"
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
-    <h4 className="font-semibold mb-2">📚 Quick Start Tutorial</h4>
-    <p className="text-sm text-muted-foreground">
-      Build your first payment app in 10 minutes
-    </p>
+    <h4 className="font-semibold mb-2">Quick Start Tutorial</h4>
+    <span className="text-sm text-muted-foreground block">Build your first payment app in 10 minutes</span>
   </a>
 
-  <a
-    href="/getting-started/project-structure"
-    className="block p-4 border rounded-lg hover:border-primary transition-colors"
-  >
-    <h4 className="font-semibold mb-2">🗂️ Project Structure</h4>
-    <p className="text-sm text-muted-foreground">
-      Understand the generated project layout
-    </p>
-  </a>
+<a
+  href="/getting-started/project-structure"
+  className="block p-4 border rounded-lg hover:border-primary transition-colors"
+>
+  <h4 className="font-semibold mb-2">Project Structure</h4>
+  <span className="text-sm text-muted-foreground block">
+    Understand the generated project layout
+  </span>
+</a>
 
-  <a
-    href="/cli/commands"
-    className="block p-4 border rounded-lg hover:border-primary transition-colors"
-  >
-    <h4 className="font-semibold mb-2">⚙️ CLI Reference</h4>
-    <p className="text-sm text-muted-foreground">
-      Complete command-line documentation
-    </p>
-  </a>
+<a
+  href="/cli/commands"
+  className="block p-4 border rounded-lg hover:border-primary transition-colors"
+>
+  <h4 className="font-semibold mb-2">CLI Reference</h4>
+  <span className="text-sm text-muted-foreground block">
+    Complete command-line documentation
+  </span>
+</a>
 
   <a
     href="/hooks/use-stellar-wallet"
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
-    <h4 className="font-semibold mb-2">🎣 Explore Hooks</h4>
-    <p className="text-sm text-muted-foreground">
-      Learn about the 8 production-ready hooks
-    </p>
+    <h4 className="font-semibold mb-2">Explore Hooks</h4>
+    <span className="text-sm text-muted-foreground block">Learn about the 8 production-ready hooks</span>
   </a>
 </div>
 
 ## Need Help?
 
-- 📖 [Read the FAQ](/troubleshooting/faq)
-- 🐛 [Report an issue](https://github.com/nextellarlabs/nextellar/issues)
-- 💬 [Join discussions](https://github.com/nextellarlabs/nextellar/discussions)
+- [Read the FAQ](/docs/troubleshooting/faq)
+- [Report an issue](https://github.com/nextellarlabs/nextellar/issues)
+- [Join discussions](https://github.com/nextellarlabs/nextellar/discussions)

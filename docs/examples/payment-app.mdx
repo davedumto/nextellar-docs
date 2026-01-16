@@ -11,17 +11,17 @@ Learn how to build a complete payment application on Stellar using Nextellar. Th
 
 A full-featured payment app with:
 
-- ✅ Multi-wallet connection (Freighter, Albedo, Lobstr)
-- ✅ Real-time balance display
-- ✅ Send XLM and custom assets
-- ✅ Transaction history with pagination
-- ✅ QR code generation for receiving
-- ✅ Transaction status tracking
-- ✅ Error handling and validation
+- Multi-wallet connection (Freighter, Albedo, Lobstr, xBull, Hana)
+- Real-time balance display
+- Send XLM and custom assets
+- Transaction history with pagination
+- QR code generation for receiving
+- Transaction status tracking
+- Error handling and validation
 
 ## Live Demo
 
-🔗 [View Live Demo](https://stellar-payment-demo.vercel.app) (Coming soon)
+[View Live Demo](https://stellar-payment-demo.vercel.app) (Coming soon)
 
 ## Prerequisites
 
@@ -41,23 +41,23 @@ npm run dev
 
 ```
 stellar-payment-app/
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx
-│   │   └── page.tsx                    # Main payment interface
-│   ├── components/
-│   │   ├── WalletConnectButton.tsx     # Wallet connection
-│   │   ├── BalanceCard.tsx             # Balance display
-│   │   ├── SendPaymentForm.tsx         # Payment form
-│   │   ├── TransactionHistory.tsx      # Transaction list
-│   │   └── ReceiveQRCode.tsx           # QR code for receiving
-│   ├── hooks/
-│   │   ├── useStellarWallet.ts         # Wallet management
-│   │   ├── useStellarPayment.ts        # Payment handling
-│   │   └── useTransactionHistory.ts    # Transaction queries
-│   └── lib/
-│       └── stellar-wallet-kit.ts       # Wallet configuration
-└── package.json
+src/
+  app/
+    layout.tsx
+    page.tsx                    # Main payment interface
+  components/
+    WalletConnectButton.tsx     # Wallet connection
+    BalanceCard.tsx             # Balance display
+    SendPaymentForm.tsx         # Payment form
+    TransactionHistory.tsx      # Transaction list
+    ReceiveQRCode.tsx           # QR code for receiving
+  hooks/
+    useStellarWallet.ts         # Wallet management
+    useStellarPayment.ts        # Payment handling
+    useTransactionHistory.ts    # Transaction queries
+  lib/
+      stellar-wallet-kit.ts       # Wallet configuration
+package.json
 ```
 
 ## Step 3: Build the Main Interface
@@ -342,7 +342,7 @@ export default function SendPaymentForm() {
             rel="noopener noreferrer"
             className="text-sm text-green-600 dark:text-green-400 hover:underline break-all"
           >
-            View on Stellar Expert →
+            View on Stellar Expert �
           </a>
         </div>
       )}
@@ -362,7 +362,7 @@ export default function SendPaymentForm() {
 
 ### 1. Wallet Connection
 
-- Multi-wallet support (Freighter, Albedo, Lobstr)
+- Multi-wallet support (Freighter, Albedo, Lobstr, xBull, Hana)
 - Persistent connection via localStorage
 - Auto-reconnect on page reload
 
@@ -411,9 +411,7 @@ vercel deploy
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
     <h4 className="font-semibold mb-2">NFT Marketplace</h4>
-    <p className="text-sm text-muted-foreground">
-      Build an NFT marketplace on Stellar
-    </p>
+    <span className="text-sm text-muted-foreground block">Build an NFT marketplace on Stellar</span>
   </a>
 
   <a
@@ -421,18 +419,16 @@ vercel deploy
     className="block p-4 border rounded-lg hover:border-primary transition-colors"
   >
     <h4 className="font-semibold mb-2">Deployment Guide</h4>
-    <p className="text-sm text-muted-foreground">
-      Deploy your app to production
-    </p>
+    <span className="text-sm text-muted-foreground block">Deploy your app to production</span>
   </a>
 </div>
 
 ## Source Code
 
-📦 [Download Complete Source Code](https://github.com/nextellarlabs/nextellar-examples/tree/main/payment-app)
+[Download Complete Source Code](https://github.com/nextellarlabs/nextellar-examples/tree/main/payment-app)
 
 ## Related Documentation
 
-- [useStellarWallet Hook](/hooks/use-stellar-wallet)
-- [useStellarPayment Hook](/hooks/use-stellar-payment)
-- [useTransactionHistory Hook](/hooks/use-transaction-history)
+- [useStellarWallet Hook](/docs/hooks/use-stellar-wallet)
+- [useStellarPayment Hook](/docs/hooks/use-stellar-payment)
+- [useTransactionHistory Hook](/docs/hooks/use-transaction-history)

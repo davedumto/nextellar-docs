@@ -81,19 +81,19 @@ html {
        ------------------------- */
 
     /* Base colors (H S% L%) — white / black */
-    --background: 0 0% 100%;        /* #FFFFFF */
-    --foreground: 0 0% 0%;          /* #000000 */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 0 0% 0%; /* #000000 */
 
     /* Borders
        --border uses black with alpha 0.4 for card-border-like look:
        #00000066 ≈ alpha 0.4 -> "0 0% 0% / 0.4" */
-    --border: 0 0% 0% / 0.4;        /* #00000066 used for card borders */
+    --border: 0 0% 0% / 0.4; /* #00000066 used for card borders */
     --border-header: 0 0% 0% / 0.1; /* subtle header border (10% black) */
 
     /* UI Colors (kept minimal / neutral) */
-    --primary: 0 0% 0%;             /* primary stays black by default */
+    --primary: 0 0% 0%; /* primary stays black by default */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;          /* very light grey */
+    --secondary: 0 0% 96%; /* very light grey */
     --secondary-foreground: 0 0% 0%;
     --muted: 0 0% 98%;
     --muted-foreground: 0 0% 30%;
@@ -101,7 +101,7 @@ html {
     --accent-foreground: 0 0% 0%;
 
     /* Components */
-    --card: 0 0% 100%;              /* white card background */
+    --card: 0 0% 100%; /* white card background */
     --card-foreground: 0 0% 0%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
@@ -143,16 +143,16 @@ html {
        - Button border: #0000001A
        ------------------------- */
 
-    --background: 0 0% 0%;          /* #000000 */
-    --foreground: 0 0% 100%;        /* #FFFFFF */
+    --background: 0 0% 0%; /* #000000 */
+    --foreground: 0 0% 100%; /* #FFFFFF */
 
-    /* Borders: keep card border semi-transparent black over dark surfaces */
-    --border: 0 0% 0% / 0.4;        /* #00000066 */
-    --border-header: 0 0% 0% / 0.2; /* slightly stronger header border on dark */
+    /* Borders: use white with alpha for visibility on dark backgrounds */
+    --border: 0 0% 100% / 0.2; /* white at 20% opacity */
+    --border-header: 0 0% 100% / 0.1; /* subtle white header border */
 
     /* UI Colors tuned for dark */
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
     --secondary: 0 0% 8%;
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 12%;
@@ -161,7 +161,7 @@ html {
     --accent-foreground: 0 0% 100%;
 
     /* Components */
-    --card: 0 0% 4%;               /* near-black card */
+    --card: 0 0% 4%; /* near-black card */
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 6%;
     --popover-foreground: 0 0% 100%;
@@ -177,14 +177,14 @@ html {
     /* Other UI Elements */
     --input: 0 0% 12%;
     --ring: 0 0% 100%;
-    --sidebar: 0 0% 0%;            /* sidebar as pure black in dark theme */
+    --sidebar: 0 0% 0%; /* sidebar as pure black in dark theme */
     --sidebar-foreground: 0 0% 100%;
     --sidebar-active: 0 0% 10%;
     --sidebar-active-foreground: 0 0% 100%;
 
     /* Button border (same hex with alpha applied) */
     --button: 0 0% 4%;
-    --button-border: 0 0% 0% / 0.102; /* #0000001A */
+    --button-border: 0 0% 100% / 0.15; /* white at 15% opacity */
     --button-foreground: 0 0% 100%;
     --button-hover: 0 0% 8%;
     --button-secondary: 0 0% 6%;
@@ -197,12 +197,15 @@ html {
   }
 
   /* Ensure elements that rely on card borders use the semi-transparent black */
-  .card, .panel, .popover {
+  .card,
+  .panel,
+  .popover {
     border-color: var(--color-border);
   }
 
   /* Buttons using the button-border variable */
-  button, .btn {
+  button,
+  .btn {
     border-color: var(--color-button-border);
   }
 }

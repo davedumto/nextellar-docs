@@ -4,11 +4,17 @@ import { useMDXComponent } from 'next-contentlayer2/hooks';
 import clsx from 'clsx';
 import SearchButton from '@/components/search-button';
 import Preview from '@/components/preview';
-import { Tab, Tabs, TabsContent, TabsList } from '@/components/tabs';
+import {
+  TabsTrigger as Tab,
+  Tabs,
+  TabsContent,
+  TabsList,
+} from '@/components/tabs';
 import Link from 'next/link';
 import CustomSyntaxHighlighter from '@/components/syntax-highlighter';
 import Stepper from '@/components/vertical-stepper';
 import { Step, Steps, StepTitle, StepContent } from '@/components/step';
+import Mermaid from '@/components/Mermaid';
 import { Button } from '@/components/button';
 import { Menu, MenuItem, MenuTrigger, PopMenu } from '@/components/menu';
 import {
@@ -84,28 +90,32 @@ const components = {
       {...children}
     />
   ),
-  h2: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+  h2: ({ className, id, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
       <Link
-        href={`#${props.id}`}
-        className={'cursor-pointer group relative items-center w-fit'}
+        href={`#${id}`}
+        className={
+          'cursor-pointer group relative items-center w-fit no-underline'
+        }
       >
-        <h1
-          className={`flex text-2xl hover:underline font-semibold mt-8 mb-4 gap-1 ${className}`}
+        <h2
+          id={id}
+          className={`flex text-2xl font-semibold mt-8 mb-4 gap-1 ${className}`}
           {...props}
         >
           {props.children}
           <span className="text-2xl text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
             #
           </span>
-        </h1>
+        </h2>
       </Link>
     );
   },
-  h3: ({ className, ...children }: React.HTMLAttributes<HTMLElement>) => (
+  h3: ({ className, id, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <h3
+      id={id}
       className={`text-xl font-semibold mt-6 mb-3 ${className}`}
-      {...children}
+      {...props}
     />
   ),
   h4: ({ className, ...children }: React.HTMLAttributes<HTMLElement>) => (
@@ -119,7 +129,7 @@ const components = {
   ),
   a: ({ className, ...children }: React.HTMLAttributes<HTMLElement>) => (
     <a
-      className={`text-primary underline underline-offset-4 ${className}`}
+      className={`text-foreground hover:opacity-70 underline underline-offset-4 ${className}`}
       {...children}
     />
   ),
@@ -194,6 +204,11 @@ const components = {
         return extractText((children.props as any)?.children || '');
       return '';
     };
+
+    // Handle mermaid code blocks specially
+    if (language === 'mermaid') {
+      return <Mermaid chart={extractText(children)} />;
+    }
 
     if (language !== 'plaintext') {
       return (
@@ -305,6 +320,7 @@ const components = {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  Mermaid,
 };
 
 interface Mdxchildren {

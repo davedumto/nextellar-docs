@@ -150,17 +150,17 @@ export function Sidebar({
       <>
         {isOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            className="fixed inset-0 bg-black/50 z-40"
             onClick={() => setIsOpen(false)}
           />
         )}
         <aside
           className={cn(
             `
-            fixed top-0 bottom-0 z-50 flex flex-col
+            fixed top-0 bottom-0 z-50 flex flex-col overflow-hidden
             ${side === 'left' ? 'left-0' : 'right-0'}
             ${isOpen ? 'translate-x-0' : side === 'left' ? '-translate-x-full' : 'translate-x-full'}
-            w-[85vw] max-w-[300px] bg-white dark:bg-[#000000] 
+            w-[85vw] max-w-[300px] bg-white dark:bg-black 
             ${side === 'left' ? 'border-r' : 'border-l'} border-border
             transition-transform duration-300 ease-in-out
           `,
@@ -168,7 +168,9 @@ export function Sidebar({
           )}
           style={{ maxWidth: `${maxWidth}px` }}
           {...props}
-        />
+        >
+          {children}
+        </aside>
       </>
     );
   }
@@ -369,9 +371,10 @@ export function SidebarMenuItem({
           href={href}
           className={`
             flex items-center justify-between w-full p-2 rounded-md
-            ${isActive
-              ? 'bg-accent text-accent-foreground'
-              : 'hover:bg-accent text-gray-700 dark:text-gray-300'
+            ${
+              isActive
+                ? 'bg-accent text-accent-foreground'
+                : 'hover:bg-accent text-gray-700 dark:text-gray-300'
             }
             ${!isOpen ? 'justify-center' : ''}
           `}
@@ -383,9 +386,10 @@ export function SidebarMenuItem({
         <button
           className={`
             flex items-center justify-between w-full p-2 rounded-md
-            ${isActive
-              ? 'bg-sidebar text-blue-500'
-              : 'hover:bg-accent text-gray-700 dark:text-gray-300'
+            ${
+              isActive
+                ? 'bg-sidebar text-blue-500'
+                : 'hover:bg-accent text-gray-700 dark:text-gray-300'
             }
             ${!isOpen ? 'justify-center' : ''}
           `}
@@ -431,8 +435,12 @@ export function NestedLink({
     <Link
       href={href}
       className={`
-        block py-1 px-2 rounded-md text-sm
-        ${isActive ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}
+        block py-1.5 px-2 rounded-md text-sm transition-all
+        ${
+          isActive
+            ? 'bg-black/10 dark:bg-white/10 text-black dark:text-white font-medium border-l-2 border-black dark:border-white -ml-[2px]'
+            : 'hover:bg-accent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+        }
       `}
       onClick={handleClick}
     >

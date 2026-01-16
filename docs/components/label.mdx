@@ -28,6 +28,7 @@ The **Label** component is a lightweight, theme-aware, and variant-powered text 
         <Input type="password" id="password" />
       </div>
     </Preview>
+
   </TabsContent>
   <TabsContent value="code">
     ```tsx
@@ -49,32 +50,33 @@ The **Label** component is a lightweight, theme-aware, and variant-powered text 
       );
     }
     ```
+
   </TabsContent>
 </Tabs>
 
 ## Props
 
-| Prop       | Type                                                    | Default   | Description                                                       |
-|------------|---------------------------------------------------------|-----------|-------------------------------------------------------------------|
-| `intent`   | `"default" \| "muted" \| "error"`                      | `default` | Visual style of the label based on context or form state.        |
-| `className`| `string`                                                | `""`      | Additional Tailwind utility classes to extend styles.             |
-| `...props` | `React.LabelHTMLAttributes<HTMLLabelElement>`          | –         | All standard label attributes like `htmlFor`, `children`, etc.   |
+| Prop        | Type                                          | Default   | Description                                                    |
+| ----------- | --------------------------------------------- | --------- | -------------------------------------------------------------- |
+| `intent`    | `"default" \| "muted" \| "error"`             | `default` | Visual style of the label based on context or form state.      |
+| `className` | `string`                                      | `""`      | Additional Tailwind utility classes to extend styles.          |
+| `...props`  | `React.LabelHTMLAttributes<HTMLLabelElement>` |           | All standard label attributes like `htmlFor`, `children`, etc. |
 
 ## Styling
 
 The component uses `class-variance-authority` to manage label style variants:
 
 ```ts
-const labelVariants = cva("text-sm font-medium leading-none", {
+const labelVariants = cva('text-sm font-medium leading-none', {
   variants: {
     intent: {
-      default: "text-gray-900 dark:text-gray-100",
-      muted: "text-gray-500 dark:text-gray-400",
-      error: "text-red-600 dark:text-red-400",
+      default: 'text-gray-900 dark:text-gray-100',
+      muted: 'text-gray-500 dark:text-gray-400',
+      error: 'text-red-600 dark:text-red-400',
     },
   },
   defaultVariants: {
-    intent: "default",
+    intent: 'default',
   },
 });
 ```
@@ -93,4 +95,3 @@ You can customize these classes to match your design system.
 ---
 
 Use the `Label` component for accessible, consistent labeling in all your forms. It pairs perfectly with custom input components like `Checkbox`, `Input`, or `TextArea`.
-
